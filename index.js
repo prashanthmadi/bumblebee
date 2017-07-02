@@ -3,7 +3,6 @@ var fs = require('fs');
 const spawn = require('child_process').spawn;
 var moment = require('moment');
 
-var currentMillis = moment().valueOf();
 var outputdir = __dirname + "/photos/";
 var storageConnString = "DefaultEndpointsProtocol=https;AccountName=prmadistorage;AccountKey=OrCEJR9PVtGIJ7+hi1YxY7jgOQ/YLoFr/5qCBFm76NtrC2Fxbbkl5qNOhxoXrkmqsPv9LPTQ8mhv0M9D6vKZaA==;EndpointSuffix=core.windows.net";
 
@@ -13,10 +12,10 @@ if (!fs.existsSync(outputdir)) {
 
 function takePicture() {
     var blobService = azure.createBlobService(storageConnString);
-    var outputfile = currentMillis + ".png";
+    var outputfile = moment().valueOf() + ".png";
     var camera = spawn('raspistill', ['-o', outputdir + outputfile]);
 
-    camera.stdout.on('data', data => {
+    camera.on('exit', data => {
         fs.createReadStream(outputdir + outputfile).pipe(blobService.createWriteStreamToBlockBlob('photos', outputfile));
     });
 
