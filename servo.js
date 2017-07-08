@@ -6,11 +6,11 @@ const board = new five.Board({
 
 board.on("ready", function() {
 
- // Create a new `servo` hardware instance.
-  var servo = new five.Servo('P1-7');
+ // Create a new `servos` hardware instance.
+  var servos = new five.Servos('P1-32','P1-12');
 
   // Create a new `animation` instance.
-  var animation = new five.Animation(servo);
+  var animation = new five.Animation(servos);
 
   // Enqueue an animation segment with options param
   // See Animation example and docs for details
