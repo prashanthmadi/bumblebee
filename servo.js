@@ -4,11 +4,7 @@ const board = new five.Board({
   io: new raspi()
 });
 
-board.on('ready', () => {
-  // Create an Led on pin 7 on P1 (GPIO4)
-  // and strobe it on/off
-//   const led = new five.Led('P1-7');
-//   led.strobe(500);
+board.on("ready", function() {
 
  // Create a new `servo` hardware instance.
   var servo = new five.Servo('P1-7');
@@ -23,6 +19,5 @@ board.on('ready', () => {
     keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
     duration: 2000
   });
-
 
 });
